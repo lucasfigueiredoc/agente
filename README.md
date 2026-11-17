@@ -27,6 +27,12 @@ após o login. O histórico vive somente na memória do navegador e é enviado a
 pergunta, sem persistência. O Streamlit anterior não envia sessão e não funciona
 com a API protegida. `/health` informa o modo `user_session`, sem sondagem global MCP.
 
+`GET /ready`, autenticado com os mesmos headers do chat, retorna `available`.
+Verifica em paralelo a abertura do catálogo MCP com a sessão do usuário e a
+presença do modelo configurado em `/models` no endpoint OpenAI-compatible.
+Tem limite de 4 segundos, não gera texto e não executa ferramentas de dados.
+O DisplayQuest usa essa sondagem para desabilitar o botão quando necessário.
+
 ## Autorização
 
 Um cliente MCP separado é criado por requisição e liberado ao final. Não existe

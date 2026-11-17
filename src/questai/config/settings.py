@@ -25,6 +25,11 @@ class Settings(BaseSettings):
 
     openai_api_key: str | None = None
 
+    @property
+    def llm_models_url(self) -> str:
+        base = self.llm_base_url or "https://api.openai.com/v1"
+        return f"{base.rstrip('/')}/models"
+
     @model_validator(mode="after")
     def _resolve_api_base_url(self) -> "Settings":
         if self.api_base_url is None:
